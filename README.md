@@ -11,11 +11,15 @@ instructions an agent can load when a task matches their purpose.
 | Skill | Purpose |
 | --- | --- |
 | [auto-compact](auto-compact/SKILL.md) | Creates a structured session checkpoint that preserves decisions, constraints, state, errors, and next steps during long-running work. |
+| [task-breakdown](task-breakdown/SKILL.md) | Turns compound prompts into a concise task table, tracks dependencies and acceptance criteria, and reports only changed items during execution. |
 
 ## Install a skill
 
 Clone this repository, then copy the skill directory you want into your agent's
 personal skills location.
+
+The examples below install `auto-compact`. To install `task-breakdown`, replace
+`auto-compact` with `task-breakdown` in the source and destination paths.
 
 ```powershell
 git clone https://github.com/ReBioNC/agentskill.git
@@ -48,3 +52,24 @@ Restart Claude Code if necessary. Invoke it with:
 ```text
 /auto-compact
 ```
+
+## Task Breakdown usage
+
+For a task table only, use `$task-breakdown` in Codex or `/task-breakdown` in
+Claude Code, followed by your request:
+
+```text
+$task-breakdown
+Fix upload retries, update the README, and investigate slow staging.
+Do not deploy. After retry tests pass, draft an Indonesian release note
+under 90 words.
+```
+
+Add `Then execute the ready tasks` to authorize execution after the breakdown.
+Use `$task-breakdown refresh` (or `/task-breakdown refresh`) with new instructions
+to update the existing task IDs. Ask to `show the full table` when you need a
+complete view; routine updates include only changes.
+
+The skill is self-contained in `task-breakdown/SKILL.md`, with no required scripts
+or supporting files. Short instructions, one row per outcome, and updates only
+when something changes limit overhead; actual token usage depends on the session.

@@ -2,3 +2,10 @@
 /auto-compact/agents/
 /auto-compact/references/
 /auto-compact/validation/
+
+# Local Task Breakdown development resources.
+/task-breakdown/agents/
+/task-breakdown/references/
+/task-breakdown/validation/
+
+/docs
